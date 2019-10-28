@@ -15,41 +15,42 @@ Read more at https://qr.ae/TWCAvj.
 
 def demonstrate_dictionaries():
     """Creating and using dictionaries.
+    - create a blank (empty) dictionary
+    - create a non-empty dictionary
+    - print a non-empty dictionary
+        - print all items using the items() function
+        - print one item per line
+    - pprint dictionary in one column
+    - add/remove items to/from a dictionary
+    - update a dictionary with the items from another dictionary or from an iterable of (k, v) pairs using dict.update()
+    - using the keys() and values() functions
     """
 
-    # Create a blank (empty) dictionary
     print()
 
-    # create a non-empty dictionary
     print()
 
-    # Print a non-empty dictionary
-    #   - print all items using the items() function
-    #   - print one item per line
     print()
 
-    # pprint dictionary in one column
     print()
 
-    # Add/Remove items to/from a dictionary
     print()
 
-    # Update a dictionary with the items from another dictionary or from an iterable of (k, v) pairs using dict.update()
     print()
 
-    # Using the keys() and values() functions
+    print()
+
+    print()
+
     print()
 
 
 def sort_dictionary(d, by):
     """Sorting a dictionary by keys or by values.
+    - using zip()
+    - using operator.itemgetter()
+    - using lambda
     """
-
-    # using zip()
-
-    # using operator.itemgetter()
-
-    # using lambda
 
 
 def demonstrate_dict_sorting():
@@ -58,9 +59,5 @@ def demonstrate_dict_sorting():
 
 
 if __name__ == '__main__':
-
     pass
-    # demonstrate_dictionaries()
-    # demonstrate_dict_sorting()
-
 
