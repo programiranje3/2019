@@ -11,6 +11,8 @@ def format_duration(seconds):
 
 def format_date(a_date):
     """Converts a date from datetime.date() to a string of the form '<month> <day>, <year>'.
+    Uses strftime() method of datetime.date class and its pre-defined format codes from
+    https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
     """
 
 
