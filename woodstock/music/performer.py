@@ -3,6 +3,7 @@
 
 
 from woodstock.util import utility
+from woodstock.music.enums import Vocals, Instrument
 
 
 class Performer:
@@ -50,7 +51,7 @@ class Performer:
             <performer>.play(song_title, *['Thank you!', 'You're wonderful!], love='We love you!')
         """
 
-        print(self.name + ':', song_title + '... ', ' '.join(args), ' '.join([v for k, v in kwargs.items()]))
+        print(self.name + ':', song_title + '...', ' '.join(args), ' '.join([v for k, v in kwargs.items()]))
 
     def play_song(self, song_title, *args, **kwargs):
         """Demonstrates calling another method feom the same class (self.<method>(...) as a mandatory syntax).
@@ -74,6 +75,45 @@ class Performer:
         if split[-1] == 'solo performer)':
             is_band = False
         return cls(name, is_band)
+
+
+class Singer(Performer):
+    """The class describing the concept of singer.
+    It is assumed that a singer is sufficiently described as a Performer,
+    with the addition of whether they are a lead or a background singer.
+    """
+
+    # Version 1 - no multiple inheritance
+
+    # Version 2 - with multiple inheritance
+
+    def play(self, song_title, *args, **kwargs):
+        """Overrides the play() method from superclass.
+        Assumes that song_title, *args (expressions of gratitude) and kwargs.values() (messages) are strings.
+        Prints song_title, expressions of gratitude and messages. A call example:
+            <singer>.play(song_title, *['Thank you!', 'You're wonderful!'], love='We love you!')
+        """
+
+
+class Songwriter(Performer):
+    """The class describing the concept of songwriter.
+    It is assumed that a songwriter is sufficiently described as a Performer
+    who writes songs and plays an instrument.
+    """
+
+    # Version 1 - no multiple inheritance
+
+    # Version 2 - with multiple inheritance
+
+    def what_do_you_do(self):
+        """Just a simple method to describe the concept of songwriter.
+        """
+
+
+class SingerSongwriter(Singer, Songwriter):
+    """The class describing the concept of singer-songwriter.
+    It is assumed that a singer-songwriter is sufficiently described as a Singer who is simultaneously a Songwriter.
+    """
 
 
 if __name__ == "__main__":
@@ -149,4 +189,17 @@ if __name__ == "__main__":
     unknown_performer_str = unknown_performer.__str__()
     print(Performer.from_str(unknown_performer_str))
     print()
+
+    # Demonstrate inheritance
+    print()
+
+    # Demonstrate method overriding
+    print()
+
+    # Demonstrate multiple inheritance and MRO.
+    # Make sure to read this first: https://stackoverflow.com/a/50465583/1899061 (especially Scenario 3).
+    print()
+
+
+
 

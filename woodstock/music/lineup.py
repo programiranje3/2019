@@ -67,6 +67,11 @@ class Lineup:
             raise StopIteration
 
 
+def next_performer(lineup):
+    """Generator that shows performers from a lineup, one at a time.
+    """
+
+
 if __name__ == "__main__":
 
     pass
@@ -124,6 +129,12 @@ if __name__ == "__main__":
     # Repeated attempt to run the iterator fails, because the iterator is exhausted
     for performer in day2_lineup:
         print(performer.name)
+    print()
+
+    # Demonstrate generators
+    print()
+
+    # Demonstrate generator expressions
     print()
 
 

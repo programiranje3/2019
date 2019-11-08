@@ -13,7 +13,7 @@ class Lineup():
     It includes a list of Performer objects and a show date for these performers.
     """
 
-    # Insert a class variable (static field), such as definition
+    # Insert a class variable (static field), such as definition, date_pattern,...
 
     def __init__(self, *performers, date=date.today()):
         pass                                            # introduce and initialize iterator counter, self.__i
@@ -24,9 +24,14 @@ class Lineup():
     def __eq__(self, other):
         pass
 
-    # Alternative constructor
+    # Alternative constructor 1
     @classmethod
     def from_name_list(cls, names, date=date.today()):
+        pass
+
+    # Alternative constructor 2
+    @classmethod
+    def from_lineup_str(cls, lineup_str):
         pass
 
     @staticmethod
@@ -42,6 +47,11 @@ class Lineup():
 
     def __next__(self):
         pass
+
+
+def next_performer(lineup):
+    """Generator that shows performers from a lineup, one at a time.
+    """
 
 
 if __name__ == "__main__":
@@ -73,7 +83,10 @@ if __name__ == "__main__":
     # Check the basic methods (__init__(), __str__(),...)
     print()
 
-    # Check the alternative constructor (@classmethod from_name_list(name_list))
+    # Check the alternative constructor 1 (@classmethod from_name_list(name_list))
+    print()
+
+    # Check the alternative constructor 2 (@classmethod from_lineup_str(lineup_str))
     print()
 
     # Check date validator (@staticmethod validate_date(date))
@@ -83,5 +96,11 @@ if __name__ == "__main__":
     print()
 
     # Repeated attempt to run the iterator fails, because the iterator is exhausted
+
+    # Demonstrate generators
+    print()
+
+    # Demonstrate generator expressions
+    print()
 
 
