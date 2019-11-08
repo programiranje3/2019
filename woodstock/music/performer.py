@@ -83,9 +83,22 @@ class Singer(Performer):
     with the addition of whether they are a lead or a background singer.
     """
 
-    # Version 1 - no multiple inheritance
+    # # Version 1 - no multiple inheritance
+    # def __init__(self, name, vocals, is_band=False):
+    #     super().__init__(name, is_band=is_band)
+    #     self.vocals = vocals if isinstance(vocals, Vocals) else None
 
-    # Version 2 - with multiple inheritance
+    # Version 2 - no multiple inheritance
+    def __init__(self, vocals, **kwargs):
+        super().__init__(**kwargs)
+        self.vocals = vocals if isinstance(vocals, Vocals) else None
+
+    def __str__(self):
+        return super().__str__() + \
+               (f', {self.vocals.name.lower().replace("_", " ")}' if isinstance(self.vocals, Vocals) else '')
+
+    def __eq__(self, other):
+        return self == other if isinstance(other, Singer) else False
 
     def play(self, song_title, *args, **kwargs):
         """Overrides the play() method from superclass.
@@ -94,6 +107,9 @@ class Singer(Performer):
             <singer>.play(song_title, *['Thank you!', 'You're wonderful!'], love='We love you!')
         """
 
+        # super().play(song_title, *args, **kwargs)
+        print(self.name + ' singing:', song_title + '...', ' '.join(args), ' '.join([v for k, v in kwargs.items()]))
+
 
 class Songwriter(Performer):
     """The class describing the concept of songwriter.
@@ -101,19 +117,43 @@ class Songwriter(Performer):
     who writes songs and plays an instrument.
     """
 
-    # Version 1 - no multiple inheritance
+    # # Version 1 - no multiple inheritance
+    # def __init__(self, name, instrument, is_band=False):
+    #     super().__init__(name, is_band=is_band)
+    #     self.instrument = instrument
+    #     self.writes_songs = True
 
     # Version 2 - with multiple inheritance
+    def __init__(self, instrument, **kwargs):
+        super().__init__(**kwargs)
+        self.instrument = instrument
+        self.writes_songs = True
+
+    def __str__(self):
+        return f'{self.name}, songwriter ({self.instrument.name.lower().replace("_", " ")})'
+
+    def __eq__(self, other):
+        return self == other if isinstance(other, Songwriter) else False
 
     def what_do_you_do(self):
         """Just a simple method to describe the concept of songwriter.
         """
+
+        print(f'I\'m a songwriter' if self.writes_songs else f'I play {self.instrument}')
 
 
 class SingerSongwriter(Singer, Songwriter):
     """The class describing the concept of singer-songwriter.
     It is assumed that a singer-songwriter is sufficiently described as a Singer who is simultaneously a Songwriter.
     """
+
+    # def __init__(self, name, vocals, **kwargs):
+    #     super().__init__(name, vocals, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def __str__(self):
+        return super().__str__() + ', singer-songwriter'
 
 
 if __name__ == "__main__":
@@ -191,13 +231,23 @@ if __name__ == "__main__":
     print()
 
     # Demonstrate inheritance
+    rogerDaltrey = Singer(name='Roger Daltrey', vocals=Vocals.LEAD_VOCALS, is_band=False)
+    print(rogerDaltrey)
+    peteTownshend = Songwriter(name='Pete Townshend', instrument=Instrument.LEAD_GUITAR, is_band=False)
+    print(peteTownshend)
     print()
 
     # Demonstrate method overriding
+    rogerDaltrey.play('See Me, Feel Me', *['Thank you!', 'You\'re wonderful!'], love='We love you!')
     print()
 
     # Demonstrate multiple inheritance and MRO.
     # Make sure to read this first: https://stackoverflow.com/a/50465583/1899061 (especially Scenario 3).
+    arloGuthrie = SingerSongwriter(name='Arlo Guthrie',
+                                   vocals=Vocals.LEAD_VOCALS,
+                                   is_band=False,
+                                   instrument=Instrument.LEAD_GUITAR)
+    print(arloGuthrie)
     print()
 
 

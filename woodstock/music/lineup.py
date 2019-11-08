@@ -71,6 +71,15 @@ def next_performer(lineup):
     """Generator that shows performers from a lineup, one at a time.
     """
 
+    i = 0
+    for performer in lineup.performers:
+        if i == 0:
+            print('First performer:')
+        yield performer
+        i += 1
+        if i < len(lineup.performers):
+            print('Another one:')
+
 
 if __name__ == "__main__":
 
@@ -132,9 +141,24 @@ if __name__ == "__main__":
     print()
 
     # Demonstrate generators
-    print()
+    # print(next_performer)
+    # print(next_performer(day2_lineup))
+    # for performer in next_performer(day2_lineup):
+    #     print(performer)
+    # print()
+    # print(next_performer(day2_lineup))
+    # next_p = next_performer(day2_lineup)
+    # print(next(next_p))
+    # print(next(next_p))
+    # print(next(next_p))
+    # print(next(next_p))
+    # # print(next(next_p))                                   # No! The generator is now exhausted, raises StopIteration!
 
     # Demonstrate generator expressions
     print()
+    next_p = (performer for performer in day2_lineup.performers)
+    print(next_p)
+    print(p.name for p in next_p)
+    print(list(p.name for p in next_p))
 
 
