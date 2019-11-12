@@ -31,17 +31,11 @@ def get_project_dir():
     """Returns the Path object corresponding to the project root directory.
     """
 
-    return PROJECT_DIR
-
 
 def get_data_dir():
     """Returns the Path object corresponding to the data directory
     (by convention located right under the project root directory).
     """
-
-    data_dir = get_project_dir() / 'data'
-    data_dir.mkdir(parents=True, exist_ok=True)
-    return data_dir
 
 
 if __name__ == '__main__':
@@ -57,22 +51,7 @@ if __name__ == '__main__':
     #            <newDir>.mkdir(parents=True, exist_ok=True)
     # - remove dir: <dir>.rmdir()                                           # requires the <dir> to be empty
     # - project dir: settings.PROJECT_DIR
-    print(Path.home())
-    print(Path())
-    print(Path('.'))
-    print(Path.cwd())
-    print(Path().absolute())
-    print(Path('.').absolute())
-    print()
-    print(Path().absolute().parent)
-    print(Path().absolute().parent.parent)
-    # new_dir = Path.cwd() / 'd1/d2'
-    # new_dir.mkdir(parents=True, exist_ok=True)
-    # new_dir.rmdir()
-    # new_dir = Path.cwd() / 'd1'
-    # new_dir.rmdir()
 
     # Demonstrate get_project_dir(), get_data_dir()
-    get_data_dir()
 
 
