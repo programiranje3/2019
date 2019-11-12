@@ -13,6 +13,7 @@ class Lineup():
     It includes a list of Performer objects and a show date for these performers.
     """
 
+    # Class variables: like static fields in Java; typically defined and initialized before __init__()
     # Insert a class variable (static field), such as definition, date_pattern,...
 
     def __init__(self, *performers, date=date.today()):

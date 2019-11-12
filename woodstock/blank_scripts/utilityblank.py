@@ -2,22 +2,14 @@
 """
 
 from enum import Enum
-
-
-def format_duration(seconds):
-    """Converts a duration from seconds to string of the form '<mm>:<ss>'.
-    """
+from datetime import date
+from pathlib import Path
 
 
 def format_date(a_date):
     """Converts a date from datetime.date() to a string of the form '<month> <day>, <year>'.
     Uses strftime() method of datetime.date class and its pre-defined format codes from
     https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
-    """
-
-
-class Lives(Enum):
-    """The enum indicating the status of being alive or deceased.
     """
 
 
@@ -46,3 +38,14 @@ if __name__ == '__main__':
 
     pass
 
+    # Demonstrate pathlib.Path
+    # - user's home dir: Path.home()
+    # - current dir: Path.cwd(), Path('.'), Path()
+    # - absolute path: <path>.absolute()
+    # - parent dir: <path>.parent
+    # - new dir: <newDir> = <path> / '<subdir1>/<subdir2>/.../<subdirN>'
+    #            <newDir>.mkdir(parents=True, exist_ok=True)
+    # - remove dir: <dir>.rmdir()                                           # requires the <dir> to be empty
+    # - project dir: settings.PROJECT_DIR
+
+    # Demonstrate get_project_dir(), get_data_dir()

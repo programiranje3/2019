@@ -3,11 +3,9 @@
 
 from enum import Enum
 from datetime import date, datetime
+from pathlib import Path
 
-
-def format_duration(seconds):
-    """Converts a duration from seconds to string of the form '<mm>:<ss>'.
-    """
+from woodstock.settings import *
 
 
 def format_date(a_date):
@@ -17,11 +15,6 @@ def format_date(a_date):
     """
 
     return a_date.strftime('%b %d, %Y') if isinstance(a_date, date) or isinstance(a_date, datetime) else 'unknown'
-
-
-class Lives(Enum):
-    """The enum indicating the status of being alive or deceased.
-    """
 
 
 def date_py_to_json(a_date):
@@ -38,14 +31,48 @@ def get_project_dir():
     """Returns the Path object corresponding to the project root directory.
     """
 
+    return PROJECT_DIR
+
 
 def get_data_dir():
     """Returns the Path object corresponding to the data directory
     (by convention located right under the project root directory).
     """
 
+    data_dir = get_project_dir() / 'data'
+    data_dir.mkdir(parents=True, exist_ok=True)
+    return data_dir
+
 
 if __name__ == '__main__':
 
     pass
+
+    # Demonstrate pathlib.Path
+    # - user's home dir: Path.home()
+    # - current dir: Path.cwd(), Path('.'), Path()
+    # - absolute path: <path>.absolute()
+    # - parent dir: <path>.parent
+    # - new dir: <newDir> = <path> / '<subdir1>/<subdir2>/.../<subdirN>'
+    #            <newDir>.mkdir(parents=True, exist_ok=True)
+    # - remove dir: <dir>.rmdir()                                           # requires the <dir> to be empty
+    # - project dir: settings.PROJECT_DIR
+    print(Path.home())
+    print(Path())
+    print(Path('.'))
+    print(Path.cwd())
+    print(Path().absolute())
+    print(Path('.').absolute())
+    print()
+    print(Path().absolute().parent)
+    print(Path().absolute().parent.parent)
+    # new_dir = Path.cwd() / 'd1/d2'
+    # new_dir.mkdir(parents=True, exist_ok=True)
+    # new_dir.rmdir()
+    # new_dir = Path.cwd() / 'd1'
+    # new_dir.rmdir()
+
+    # Demonstrate get_project_dir(), get_data_dir()
+    get_data_dir()
+
 
