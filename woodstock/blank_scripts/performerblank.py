@@ -57,6 +57,21 @@ class Performer:
         pass
 
 
+class PerformerEncoder(json.JSONEncoder):
+    """JSON encoder for Performer objects.
+    """
+
+    def default(self, o):
+        # recommendation: always use double quotes with JSON
+
+        pass
+
+
+def performer_json_to_py(performer_json):
+    """JSON decoder for Performer objects (object_hook parameter in json.loads()).
+    """
+
+
 class Singer(Performer):
     """The class describing the concept of singer.
     It is assumed that a singer is sufficiently described as a Performer,
@@ -160,5 +175,12 @@ if __name__ == "__main__":
 
     # Demonstrate multiple inheritance and MRO.
     # Make sure to read this first: https://stackoverflow.com/a/50465583/1899061 (especially Scenario 3).
+    print()
+
+    # Demonstrate JSON encoding/decoding of Performer objects
+    # Single object
+    print()
+
+    # List of objects
     print()
 

@@ -165,5 +165,12 @@ if __name__ == "__main__":
         f.write(str(arloGuthrie))
     print()
 
+    # Demonstrate JSON encoding/decoding of Festival objects
+    # Single object
+    print()
+
+    # List of objects
+    print()
+
 
 

@@ -93,5 +93,12 @@ if __name__ == "__main__":
     # Demonstrate get_project_dir(), get_data_dir() and writing/reading to/from files in data dir
     print()
 
+    # Demonstrate JSON encoding/decoding of Festival objects
+    # Single object
+    print()
+
+    # List of objects
+    print()
+
 
 
