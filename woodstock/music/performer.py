@@ -85,13 +85,23 @@ class PerformerEncoder(json.JSONEncoder):
 
     def default(self, o):
         # recommendation: always use double quotes with JSON
+        if isinstance(o, Performer):
+            return {"__Performer__": o.__dict__}
+        return {f"__{o.__class__.__name__}__": o.__dict__}
 
-        pass
+        # if isinstance(o, Performer):
+        #     d = o.__dict__.copy()
 
 
 def performer_json_to_py(performer_json):
     """JSON decoder for Performer objects (object_hook parameter in json.loads()).
     """
+
+    if "__Performer__" in performer_json:
+        p = Performer('')
+        p.__dict__.update(performer_json["__Performer__"])
+        return p
+    return performer_json
 
 
 class Singer(Performer):
@@ -269,11 +279,22 @@ if __name__ == "__main__":
 
     # Demonstrate JSON encoding/decoding of Performer objects
     # Single object
+    # print(json.dumps([1, None, 2.3, 'wer', {'2': 'two', '3': 'three'}, True], indent=4))
+    # print(json.dumps(23, indent=4))
+    csny_json = json.dumps(csny, cls=PerformerEncoder, indent=4)
+    print(csny_json)
+    p = json.loads(csny_json, object_hook=performer_json_to_py)
+    print(p)
+
     print()
 
     # List of objects
+    day2_performers = [gratefulDead, jeffersonAirplane, theWho, ccr]
+    day2_json = json.dumps(day2_performers, cls=PerformerEncoder, indent=4)
+    print(day2_json)
+    p_list = json.loads(day2_json, object_hook=performer_json_to_py)
+    for p in p_list:
+        print(p)
     print()
-
-
 
 

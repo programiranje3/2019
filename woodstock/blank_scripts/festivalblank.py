@@ -37,6 +37,21 @@ class LineupDateException(FestivalError):
     """
 
 
+class FestivalEncoder(json.JSONEncoder):
+    """JSON encoder for Festival objects.
+    """
+
+    def default(self, o):
+        # recommendation: always use double quotes with JSON
+
+        pass
+
+
+def festival_json_to_py(festival_json):
+    """JSON decoder for Festival objects (object_hook parameter in json.loads()).
+    """
+
+
 if __name__ == "__main__":
 
     pass

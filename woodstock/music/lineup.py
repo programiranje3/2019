@@ -5,7 +5,7 @@ It includes a list of Performer objects and a show date for these performers.
 from datetime import date, datetime, time
 import json
 
-from woodstock.music.performer import Performer
+from woodstock.music.performer import Performer, PerformerEncoder, performer_json_to_py
 from woodstock.util.utility import format_date
 
 
@@ -89,12 +89,26 @@ class LineupEncoder(json.JSONEncoder):
     def default(self, o):
         # recommendation: always use double quotes with JSON
 
-        pass
+        if isinstance(o, Lineup):
+            d = o.__dict__.copy()
+            d["performers"] = json.dumps(d["performers"], cls=PerformerEncoder, indent=4)
+            d["date"] = date.isoformat(o.date)
+            return {"__Lineup__": d}
+        return {f"__{o.__class__.__name__}__": o.__dict__}
 
 
 def lineup_json_to_py(lineup_json):
     """JSON decoder for Lineup objects (object_hook parameter in json.loads()).
     """
+
+    if "__Lineup__" in lineup_json:
+        l = Lineup()
+        l.__dict__.update(lineup_json["__Lineup__"])
+        l.performers = tuple(json.loads(l.performers, object_hook=performer_json_to_py))
+        l.date = date.fromisoformat(l.date)
+        l._Lineup__i = 0
+        return l
+    return lineup_json
 
 
 if __name__ == "__main__":
@@ -179,9 +193,18 @@ if __name__ == "__main__":
 
     # Demonstrate JSON encoding/decoding of Lineup objects
     # Single object
+    day2_lineup_json = json.dumps(day2_lineup, cls=LineupEncoder, indent=4)
+    print(day2_lineup_json)
+    d2_lineup = json.loads(day2_lineup_json, object_hook=lineup_json_to_py)
+    print(d2_lineup)
     print()
 
     # List of objects
+    day1_lineup = Lineup(*[arloGuthrie, melanie], date=date(1969, 8, 15))
+    day2_lineup = Lineup(*[gratefulDead, jeffersonAirplane, theWho, ccr], date=date(1969, 8, 16))
+    day3_lineup = Lineup(*[jimiHendrix, theBand, csny], date=date(1969, 8, 17))
+    lineups_json = json.dumps([day1_lineup, day2_lineup, day3_lineup], cls=LineupEncoder, indent=4)
+    print(lineups_json)
     print()
 
 

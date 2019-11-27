@@ -63,6 +63,36 @@ class LineupDateException(FestivalError):
         self.message = f'lineup date ({d}) not between start ({start_date}) and end ({end_date}) dates'
 
 
+class FestivalEncoder(json.JSONEncoder):
+    """JSON encoder for Festival objects.
+    """
+
+    def default(self, o):
+        # recommendation: always use double quotes with JSON
+
+        if isinstance(o, Festival):
+            f = o.__dict__.copy()
+            f["lineups"] = json.dumps(f["lineups"], cls=LineupEncoder, indent=4)
+            f["start"] = date.isoformat(f["start"])
+            f["end"] = date.isoformat(f["end"])
+            return {"__Festival__": f}
+        return {f"__{o.__class__.__name__}__": o.__dict__}
+
+
+def festival_json_to_py(festival_json):
+    """JSON decoder for Festival objects (object_hook parameter in json.loads()).
+    """
+
+    if "__Festival__" in festival_json:
+        f = Festival('', '', date.today(), date.today())
+        f.__dict__.update(festival_json["__Festival__"])
+        f.start = date.fromisoformat(f.start)
+        f.end = date.fromisoformat(f.end)
+        f.lineups = tuple(json.loads(f.lineups, object_hook=lineup_json_to_py))
+        return f
+    return festival_json
+
+
 if __name__ == "__main__":
 
     pass
@@ -161,15 +191,21 @@ if __name__ == "__main__":
     # Demonstrate get_project_dir(), get_data_dir() and writing/reading to/from files in data dir
     # print('get_project_dir():', get_project_dir())
     # print('get_data_dir():', get_data_dir())
-    with open(get_data_dir() / 'outfile.txt', 'w') as f:
-        f.write(str(arloGuthrie))
-    print()
+    # with open(get_data_dir() / 'outfile.txt', 'w') as f:
+    #     f.write(str(arloGuthrie))
+    # print()
 
     # Demonstrate JSON encoding/decoding of Festival objects
     # Single object
+    woodstock = Festival('Woodstock', 'Bethel, NY', date(1969, 8, 15), date(1969, 8, 17),
+                         day1_lineup, day2_lineup, day3_lineup)
+    woodstock_json = json.dumps(woodstock, cls=FestivalEncoder, indent=4)
+    print(woodstock_json)
     print()
 
     # List of objects
+    woodstock = json.loads(woodstock_json, object_hook=festival_json_to_py)
+    print(woodstock)
     print()
 
 
